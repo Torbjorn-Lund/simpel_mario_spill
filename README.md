@@ -6,7 +6,7 @@
 - NB: Markdown dokumenter leses i VS-code ved å høyreklikke på filen og velge "open Preview". Annbefaler denne: "Markdown Preview Mermaid Support".
 
 ## Kjente problemer
-...
+Spillet kan være tungt å kjøre...
 
 ## Spillets opbyggning
 Under er et forenklet flytdiagram som viser logikken i programmet.

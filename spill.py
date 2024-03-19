@@ -1,9 +1,13 @@
 """
 Selve spillet
+
+I hoved løkken har programmet har to muligheter, enten kjøres spillet (kjor_spill = True), ellers så vises en start skjerm.
+Når spillet er ferdig settes kjor_spill = False, og vi er tilbake til start skjerm. Slik fortsetter spillet så lenge fortsett = True.
+For mer innformasjon se README.md eller: https://github.com/Torbjorn-Lund/simpel_mario_spill.git
 """
 # Importerer
 import pygame as pg
-from pygame.locals import (K_UP, K_DOWN, K_LEFT, K_RIGHT, K_SPACE) # Taster
+from pygame.locals import (K_UP, K_LEFT, K_RIGHT) # Taster
 import random as rd
 import math as m
 from time import sleep
@@ -22,7 +26,7 @@ BANELENGDE = 10000
 vindu = pg.display.set_mode([VINDU_BREDDE,VINDU_HOYDE])
 start_skjerm = Start_skjerm(vindu)
 spillbrett = Spillbrett(vindu,"bilder/bakgrunn1.jpeg",BANELENGDE)
-spiller = Spiller(VINDU_BREDDE/2,BAKKE_Y_KOORDINAT-60,vindu,"bilder/mario.webp",60,60)
+spiller = Spiller(VINDU_BREDDE/2,BAKKE_Y_KOORDINAT-60,vindu,"bilder/mario.webp", "bilder/mario_hoppe.png",60,60)
 klokke = pg.time.Clock()
 
 # Definerer lyder
@@ -43,7 +47,7 @@ poeng = 0
 tid_overlevd = 0
 fortsett = True
 kjor_spill = False
-tid_mellom_skudd = 20
+tid_mellom_skudd = 15
 skyte_tid = 0
 
 game_over = False # Ikke i bruk
@@ -76,7 +80,7 @@ def avstand_mellom_rektangler(rektangel1, rektangel2) -> tuple:
     # returnerer
     return (m.sqrt((x2 - x1)**2 + (y2 - y1)**2),overlap_x,overlap_y)
 
-def rektangel_kollisjon(rektangel1, rektangel2):
+def rektangel_kollisjon(rektangel1, rektangel2) -> bool:
     """
     Sjekker om to rektangler kolliderer
     
@@ -162,7 +166,7 @@ def reset_spill():
 
     # Reset spiller og spillbrett
     spillbrett = Spillbrett(vindu,"bilder/bakgrunn1.jpeg",BANELENGDE)
-    spiller = Spiller(VINDU_BREDDE/2,BAKKE_Y_KOORDINAT-60,vindu,"bilder/mario.webp",60,60)
+    spiller = Spiller(VINDU_BREDDE/2,BAKKE_Y_KOORDINAT-60,vindu,"bilder/mario.webp", "bilder/mario_hoppe.png",60,60)
     
     # Nulstiller poeng score
     poeng = 0
@@ -191,16 +195,13 @@ def bevegelse(trykkede_taster, bakke_y_koordinat):
     # Flytter spiller, hvis nødvendig
     spiller.flytt(bakke_y_koordinat)
 
-def sjekk_kollisjoner(rektangel):
-    """ Sjekker for kollisjoner med spilbrettets deler """
-
-    
 def oppdater_logikk(trykkede_taster, bakke_y_koordinat):
     """ 
     Oppdaterer spill logikken 
     
     1. Sjekker for kollisjon med diverse objekter
     2. Sørger for at spiller faller hvis ikke i kontakt
+    3. Kaller funksjon som oppdaterer possisjon, basert på tastetrykk
     """
     global poeng, game_over
 
@@ -266,9 +267,10 @@ def oppdater_logikk(trykkede_taster, bakke_y_koordinat):
 
     bevegelse(trykkede_taster, bakke_y_koordinat)
 
-# Hoved løkke
+# HOVED LØKKE
 while fortsett:
     
+    # Variabler
     mus_pos = None
     mus_trykket = False
     trykkede_taster = pg.key.get_pressed() # Henter tastetrykk
@@ -324,6 +326,7 @@ while fortsett:
         vindu.blit(tekstflate, (10, 10))
         vindu.blit(tekstflate2, (900, 10))
 
+        # Hvis spillet er tapt
         if game_over:
             pg.mixer.music.stop() # Stopp bakgrunnsmusikk
             game_over_lyd.play() # Spiller lyd
@@ -355,8 +358,7 @@ while fortsett:
             navn_oppgitt = registrer_score(overlegg)
             while not navn_oppgitt:
                 navn_oppgitt = registrer_score(overlegg)
-                # Tegner innhold
-                pg.display.flip()
+                pg.display.flip() # Tegner innhold
             
             kjor_spill = False
 

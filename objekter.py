@@ -9,14 +9,14 @@ pg.init()
 font = pg.font.SysFont("calibri", 36)
 font_liten = pg.font.SysFont("arial", 24)
 
-
 class Plassering:
-    """SuperKlasse som gir posisjon til de ulike figurene
-     Attributter
-     x - x koordinaten til figuren
-     y - y koordinaten til figuren
-     vindusobjekt - sier at figurene skal inn i akkurat dette vindusobjektet
-     """
+    """
+    SuperKlasse som gir posisjon til de ulike figurene
+    Attributter
+        x - x koordinaten til figuren
+        y - y koordinaten til figuren
+        vindusobjekt - sier at figurene skal inn i akkurat dette vindusobjektet
+    """
     def __init__(self, x, y, vindusobjekt):
         self.x = x
         self.y = y
@@ -24,13 +24,16 @@ class Plassering:
 
 class Rektangel(Plassering):
     """Subklasse. Klassen forteller hvordan rektanglene i spillet lages
-     Attributter
-     farge - fargen til sirkelen (R,G,B)
-     lengde - sier hvor høy rektangelet skal være
-     bredde - sier hvor bred rektangelet skal være
+    Attributter
+        x - x koordinaten til figuren
+        y - y koordinaten til figuren
+        vindusobjekt - sier at figurene skal inn i akkurat dette vindusobjektet
+        farge - fargen til sirkelen (R,G,B)
+        lengde - sier hvor høy rektangelet skal være
+        bredde - sier hvor bred rektangelet skal være
 
-     lager egen metode for tegn til rektangelet
-     """
+    lager egen metode for tegn til rektangelet
+    """
     def __init__(self, x, y,vindusobjekt,farge,lengde,bredde):
         super().__init__(x, y, vindusobjekt)
         self.farge = farge
@@ -41,16 +44,17 @@ class Rektangel(Plassering):
     def sentrum(self):
         """Finner sentrum av rektangelet"""
         return (self.x + self.bredde / 2, self.y + self.lengde / 2)
-    
-
 
 class Sirkel(Plassering):
     """Subklasse. Klassen forteller hvordan sirklene i spillet lages
-     Attributter
-     farge - fargen til sirkelen (R,G,B)
-     radius - sier hvor stor sirkelen blir
+    Attributter
+        x - x koordinaten til figuren
+        y - y koordinaten til figuren
+        vindusobjekt - sier at figurene skal inn i akkurat dette vindusobjektet
+        farge - fargen til sirkelen (R,G,B)
+        radius - sier hvor stor sirkelen blir
 
-     lager egen metode for tegn til sirkelen
+    lager egen metode for tegn til sirkelen
      """
     def __init__(self, x, y,vindusobjekt,farge, radius):
         super().__init__(x, y, vindusobjekt)
@@ -79,17 +83,19 @@ class Sirkel(Plassering):
         else:
             return False
 
-
 class Strek(Plassering):
     """Subklasse. Klassen forteller hvordan strekene i spillet lages
-     Attributter
-     farge - fargen til streken (R,G,B)
-     bredde - sier hvor bred streken skal være
-     slutt_x - x koordinaten til sluttposisjon til streken
-     slutt_y - y koordinaten til sluttposisjonen til streken
+    Attributter
+        x - x koordinaten til figuren
+        y - y koordinaten til figuren
+        vindusobjekt - sier at figurene skal inn i akkurat dette vindusobjektet
+        farge - fargen til streken (R,G,B)
+        bredde - sier hvor bred streken skal være
+        slutt_x - x koordinaten til sluttposisjon til streken
+        slutt_y - y koordinaten til sluttposisjonen til streken
      
-     lager egen metode for tegn til streken
-     """
+    lager egen metode for tegn til streken
+    """
     def __init__(self, x, y,vindusobjekt,farge,bredde, slutt_x,slutt_y):
         super().__init__(x, y, vindusobjekt)
         self.farge = farge
@@ -99,17 +105,19 @@ class Strek(Plassering):
     def tegn(self):
          pg.draw.line(self.vindusobjekt, self.farge, (self.x,self.y),(self.slutt_x,self.slutt_y),self.bredde)
 
-
 class Bilde_objekt(Plassering):
-    """Subklasse til plassering. Klassen tar inn et bilde/URL (banelinje), bilde får en lengde og en bredde og gjennom tegn metoden
-     skalerer størrelsen på figuren
-     Attributter
-     banelinje - En URL til hvordan figuren ser ut
-     lengde - sier hvor høy figuren skal være
-     bredde - sier hvor bred figuren skal være
+    """Subklasse til plassering. Klassen tar inn et bilde/URL (banelinje), 
+    bilde får en lengde og en bredde og gjennom tegn metoden skalerer størrelsen på figuren
+    Attributter
+        x - x koordinaten til figuren
+        y - y koordinaten til figuren
+        vindusobjekt - sier at figurene skal inn i akkurat dette vindusobjektet
+        banelinje - En URL til hvordan figuren ser ut
+        lengde - sier hvor høy figuren skal være
+        bredde - sier hvor bred figuren skal være
 
-     lager egen metode for tegn til bilde_objektet
-     """
+    lager egen metode for tegn til bilde_objektet
+    """
 
     def __init__(self, x, y,vindusobjekt, banelinje, lengde, bredde):
         super().__init__(x, y, vindusobjekt)
@@ -126,9 +134,22 @@ class Bilde_objekt(Plassering):
         return (self.x + self.bredde / 2, self.y + self.lengde / 2)
 
 class NPC(Bilde_objekt):
-    """Subklasse til bilde_objekt. Klassen forteller hvordan en NPC beveger seg i spillet (fiende)
-    Attributter
-     fartX - gir figuren fart i x retning slik at den beveger seg.
+    """
+    Subklasse til bilde_objekt. Klassen forteller hvordan en NPC beveger seg i spillet (fiende)
+    Attributter:
+        x - x koordinaten til figuren
+        y - y koordinaten til figuren
+        vindusobjekt - sier at figurene skal inn i akkurat dette vindusobjektet
+        banelinje - En URL til hvordan figuren ser ut
+        lengde - sier hvor høy figuren skal være
+        bredde - sier hvor bred figuren skal være
+        fartX - gir figuren fart i x retning slik at den beveger seg.
+        fartY - gir figuren fart i x retning slik at den beveger seg.
+
+    Metoder (forklaring nede i koden):
+        flytt
+        skyt
+        tegn  
     """
     def __init__(self, x, y,vindusobjekt, banelinje, lengde, bredde,fartX, fartY):
         super().__init__(x, y, vindusobjekt,banelinje,lengde,bredde)
@@ -137,7 +158,10 @@ class NPC(Bilde_objekt):
         self.skudd = []
 
     def flytt(self):
-        """ Flytter objekt i x og y rettning """
+        """ Flytter objekt i x og y retning 
+        i tilleg har vi listen self.skudd som er en liste fylt av 
+        instanser av NPC klassen, gjennom metoden skyt.
+        """
         self.x += self.fartX
         self.y += self.fartY
 
@@ -147,7 +171,7 @@ class NPC(Bilde_objekt):
     
     def skyt(self,fartX,fartY,filnavn:str, lengde, bredde, flytt_skudd=0):
         """ Danner er skuddobjekt med den gitte farten, oppgi banelinje til bilde av skuddet """
-        self.skudd.append(Skudd(self.x,self.y + self.lengde/2 + flytt_skudd, self.vindusobjekt, filnavn,lengde,bredde,fartX,fartY))
+        self.skudd.append(NPC(self.x,self.y + self.lengde/2 + flytt_skudd, self.vindusobjekt, filnavn,lengde,bredde,fartX,fartY))
     
     def tegn(self):
         """ Tegner NPC og skudd """
@@ -155,25 +179,31 @@ class NPC(Bilde_objekt):
         for skudd in self.skudd:
             skudd.tegn()
         return super().tegn()
-    
-class Skudd(NPC):
-    """subklasse av NPC. Skudd objekt """
-    def __init__(self, x, y, vindusobjekt, banelinje, lengde, bredde, fartX, fartY):
-        super().__init__(x, y, vindusobjekt, banelinje, lengde, bredde, fartX, fartY)
-        
-        
-    def flytt(self):
-        """Metode for å flytte skuddet"""
-        self.y += self.fartY
-        self.x += self.fartX
 
 class Spiller(Bilde_objekt):
     """
     Klasse for spiller
+    Attributter:
+        x - x koordinaten til figuren
+        y - y koordinaten til figuren
+        vindusobjekt - sier at figurene skal inn i akkurat dette vindusobjektet
+        banelinje - En URL til hvordan figuren ser ut
+        banelinje_hoppe - Viser til nytt bilde når spiller hopper
+        lengde - sier hvor høy figuren skal være
+        bredde - sier hvor bred figuren skal være
+
+    metoder (kommenterer nede i koden):
+        hopp
+        flytt
     """
 
-    def __init__(self, x, y, vindusobjekt, banelinje, lengde, bredde):
+    def __init__(self, x, y, vindusobjekt, banelinje, banelinje_hoppe, lengde, bredde):
         super().__init__(x, y, vindusobjekt, banelinje, lengde, bredde)
+        
+        # Last inn bildene en gang under initialisering
+        self.bilde_vanlig = pg.image.load(banelinje).convert_alpha()
+        self.bilde_hoppe = pg.image.load(banelinje_hoppe).convert_alpha()
+
         # Hoppe relaterte atributter
         self.tyngdeakselerasjon = 0.003
         self.hopp_hastighet = -1
@@ -187,21 +217,41 @@ class Spiller(Bilde_objekt):
             self.fart_y = self.hopp_hastighet
     
     def flytt(self, bakke_y_koordinat):
-        """ Oppdaterer spillerens possisjon """
+        """ Oppdaterer spillerens posisjon """
+
+        # Hvis spiller hopper
         if self.hopper:
             self.fart_y += self.tyngdeakselerasjon
             self.y += self.fart_y
+            # Endrer bilde
+            self.mittBilde = self.bilde_hoppe
         else:
             self.y += self.fart_y
-
+ 
         # Sjekker om spiller har landet
         if self.y >= bakke_y_koordinat - self.lengde:
             self.y = bakke_y_koordinat - self.lengde
             self.hopper = False
             self.fart_y = 0
+            # Endrer bilde
+            self.mittBilde = self.bilde_vanlig
 
 class Knapp(Plassering):
-    """ Klasse for en knapp som kan trykkes med mus """
+    """ Klasse for en knapp som kan trykkes med mus
+    Attributter: 
+        x - x koordinaten til knappen
+        y - y koordinaten til knappen
+        vindusobjekt - sier at knappen skal inn i akkurat dette vindusobjektet
+        lengde - sier hvor høy knappen skal være
+        bredde - sier hvor bred knappen skal være
+        farge - gir en bakgrunnsfarge
+        tekst - sier hvilke tekst som skal befinne seg på knappen
+        tekst_farge - fargen på teksten (R,G,B), vi har satt den til svart (0,0,0)
+
+    metoder (kommentering nede i koden):
+        tegn
+        er_trykket
+    """
     def __init__(self, x, y, vindusobjekt, bredde, lengde, farge, tekst="", tekst_farge=(0,0,0)):
         super().__init__(x, y, vindusobjekt)
         self.rektangel = pg.Rect(x, y, bredde, lengde)
@@ -225,7 +275,19 @@ class Knapp(Plassering):
         return self.rektangel.collidepoint(mus_posisjon)
     
 class Text_input(Plassering):
-    """ Klassen konstruerer en input boks for tekst """
+    """ Klassen konstruerer en input boks for tekst 
+    Attributter:
+        x - x koordinaten til teksten
+        y - y koordinaten til teksten
+        vindusobjekt - sier at teksten skal inn i akkurat dette vindusobjektet
+        lengde - sier hvor høy teksten skal være
+        bredde - sier hvor bred teksten skal være
+        tekst_storelse - sier størrelsen på teksten
+
+    metoder (kommentering nede i koden):
+        hondter_event
+        tegn
+    """
     def __init__(self, x, y, vindusobjekt, bredde, lengde, tekst_storelse):
         super().__init__(x, y, vindusobjekt)
         self.rektangel = pg.Rect(x, y, bredde, lengde)
@@ -260,7 +322,14 @@ class Text_input(Plassering):
         self.vindusobjekt.blit(tekstflate, (self.rektangel.x + 5, self.rektangel.y + 5))
 
 class Poengtavle(Plassering):
-    """ Viser en poengtavle """
+    """ Viser en poengtavle 
+    Attributter:
+        x - x koordinaten til poengtavlen
+        y - y koordinaten til poengtavlen
+        vindusobjekt - sier at poengtavlen skal inn i akkurat dette vindusobjektet
+        filnavn - tar inn en fil
+        tekst_storelse - sier størrelse på teksten inni poengtavlen
+    """
     def __init__(self, x, y, vindusobjekt, filnavn, tekst_storelse):
         super().__init__(x, y, vindusobjekt)
         self.filnavn = filnavn
@@ -300,8 +369,8 @@ class Poengtavle(Plassering):
         self.vindusobjekt.blit(overskrift2, (self.x + x_offset, self.y ))
         self.vindusobjekt.blit(overskrift3, (self.x + x_offset*2, self.y))
         
-        # Sorter listen basert på "Poeng"-verdien
-        self.poeng_data.sort(key=lambda x: int(x["Poeng"]), reverse=True)
+        # Sorter listen basert på "Poeng"-verdien, så etter "Tid"-verdien
+        self.poeng_data.sort(key=lambda x: (int(x["Poeng"]), -int(x["Tid"])), reverse = True)
 
         # Går gjennom data og skriver ut
         for index, data in enumerate(self.poeng_data):
@@ -319,7 +388,13 @@ De kommende objektene er brukt for å vise en sammensatt bakgrunn
 """
 
 class Start_skjerm():
-    """ Denne klassen brukes for å vise start skjærmen """
+    """ Denne klassen brukes for å vise start skjærmen
+    Attributter:
+        vindu_obj - skal inn i akkurat dette vindusobjektet
+
+    metoder (kommentering står nede i koden):
+        tegn
+    """
     def __init__(self, vindu_obj) -> None:
         self.vindu_obj = vindu_obj
 
@@ -349,7 +424,16 @@ class Start_skjerm():
         self.vindu_obj.blit(self.under_overskrift, (660, 50))
 
 class Registrer_data():
-    """ Viser et input felt for registrering av tid, poeng og navn og lagrer i opgitt fil"""
+    """ Viser et input felt for registrering av tid, poeng og navn og lagrer i opgitt fil
+    Attributter:
+        vindu_obj - skal inn i akkurat dette vindusobjektet
+        tid_overlevd - Viser tiden du har brukt
+        poeng - Viser poengene du har
+
+    Metoder (kommentering står nede i koden):
+        lagre_data
+        tegn
+    """
     def __init__(self, vindu_obj, tid_overlevd, poeng) -> None:
         """ Konstruktør """
         self.vindu_obj = vindu_obj
@@ -387,10 +471,21 @@ class Registrer_data():
         self.vindu_obj.blit(self.overskrift, (10, 10))
         self.vindu_obj.blit(self.info_tekst, (10, 50))
 
-
-
 class Spillbrett():
-    """ I denne klassen ligger "spill mapet", bakgrunn med hindre """
+    """ I denne klassen ligger banen til spillet, bakgrunn med hindre 
+    Attributter:
+        vindu_obj - skal inn i akkurat dette vindusobjektet
+        bakgrunn_url - tar inn URL til bakgrunn som brukes på banen
+        banelengde - forteller hvor lang banen skal være
+        pos_x - sier x posisjonen til bakgrunnen som skal bevege seg i forhold til spilleren
+        pos_y - sier y posisjonen til bakgrunnen som skal bevege seg i forhold til spilleren
+
+    Metoder (kommentering nede i koden):
+        flytt_hoyre
+        flytt_venstre
+        flytt
+        tegn
+    """
     def __init__(self, vindu_obj:object, bakgrunn_url:str, banelengde, pos_x=0, pos_y=0) -> None:
         self.vindu_obj = vindu_obj
         self.pos_x = pos_x # Posisjonen starter på null
@@ -511,7 +606,9 @@ class Spillbrett():
             self.flytt()
     
     def flytt_venstre(self):
-        """ Metode for å flytte bakgrunnen mot høyre, men skaper en illusjon av at karakteren beveger seg mot venstre """
+        """ Metode for å flytte bakgrunnen mot høyre, 
+        men skaper en illusjon av at karakteren beveger seg mot venstre 
+        """
         
         # Setter bevegelsesrettning
         if self.pos_x < 0:
@@ -521,7 +618,7 @@ class Spillbrett():
             self.flytt()
 
     def flytt(self):
-        """ Metode for å flytte bakgrunnen i x rettning """
+        """ Metode for å flytte bakgrunnen i x retning """
 
         # Oppdaterer bakgrunnens possisjon
         self.pos_x += self.hastighet
@@ -549,7 +646,7 @@ class Spillbrett():
         for i in range(antall_repetisjoner):
             self.vindu_obj.blit(self.bakgrunnsbilde, (self.pos_x + i * self.bredde_bakgrunnsbilde, self.pos_y))
         
-        # Tegner ellementer i self.gjennstander
+        # Tegner elementer i self.gjennstander
         for key in self.gjennstander:
             for item in self.gjennstander[key]:
 
@@ -560,8 +657,3 @@ class Spillbrett():
                         npc.flytt()
                 else:
                     item.tegn()
-
-    
-    
-    
-
